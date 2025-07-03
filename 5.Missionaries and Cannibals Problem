@@ -1,0 +1,22 @@
+from collections import deque
+def is_valid(m,c):
+ return 0<=m<=3 and 0<=c<=3 and (m==0 or m>=c)
+def successors(state):
+ m1,c1,b=state
+ sign=-1 if b else 1
+ for m,c in[(1,0),(2,0),(0,1),(0,2),(1,1)]:
+  m2=m1+sign*m
+  c2=c1+sign*c
+  if is_valid(m2,c2) and is_valid(3-m2,3-c2):
+   yield(m2,c2,1-b)
+def bfs(start,goal):
+ q=deque([(start,[])])
+ visited=set()
+ while q:
+  state,path=q.popleft()
+  if state in visited:continue
+  visited.add(state)
+  if state==goal:return path+[state]
+  for s in successors(state):q.append((s,path+[state]))
+res=bfs((3,3,1),(0,0,0))
+for r in res:print(r)
