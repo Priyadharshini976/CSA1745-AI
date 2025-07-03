@@ -1,0 +1,23 @@
+N=8
+def print_solution(b):
+    for r in b: print("".join("Q" if x else "." for x in r))
+    print()
+def is_safe(b,r,c):
+    for i in range(c):
+        if b[r][i]: return False
+    for i,j in zip(range(r,-1,-1),range(c,-1,-1)):
+        if b[i][j]: return False
+    for i,j in zip(range(r,N),range(c,-1,-1)):
+        if b[i][j]: return False
+    return True
+def solve(b,c):
+    if c>=N: print_solution(b); return True
+    res=False
+    for i in range(N):
+        if is_safe(b,i,c):
+            b[i][c]=1
+            res=solve(b,c+1) or res
+            b[i][c]=0
+    return res
+b=[[0]*N for _ in range(N)]
+solve(b,0)
