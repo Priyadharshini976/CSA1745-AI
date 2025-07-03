@@ -1,0 +1,17 @@
+colors=['Red','Green','Blue']
+regions={'WA':['NT','SA'],'NT':['WA','SA','Q'],'SA':['WA','NT','Q','NSW','V'],'Q':['NT','SA','NSW'],'NSW':['Q','SA','V'],'V':['SA','NSW'],'T':[]}
+def is_valid(region,c,assignment):
+ for n in regions[region]:
+  if n in assignment and assignment[n]==c:return False
+ return True
+def assign_colors(assignment):
+ if len(assignment)==len(regions):print(assignment);return True
+ for r in regions:
+  if r not in assignment:
+   for c in colors:
+    if is_valid(r,c,assignment):
+     assignment[r]=c
+     if assign_colors(assignment):return True
+     del assignment[r]
+   return False
+assign_colors({})
