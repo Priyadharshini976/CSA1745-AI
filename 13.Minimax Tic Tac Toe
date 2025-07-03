@@ -1,0 +1,80 @@
+def print_board(board):
+    print(board[0]+"|"+board[1]+"|"+board[2])
+    print("-+-+-")
+    print(board[3]+"|"+board[4]+"|"+board[5])
+    print("-+-+-")
+    print(board[6]+"|"+board[7]+"|"+board[8])
+def check_win(board, player):
+    return (board[0]==board[1]==board[2]==player or
+            board[3]==board[4]==board[5]==player or
+            board[6]==board[7]==board[8]==player or
+            board[0]==board[3]==board[6]==player or
+            board[1]==board[4]==board[7]==player or
+            board[2]==board[5]==board[8]==player or
+            board[0]==board[4]==board[8]==player or
+            board[2]==board[4]==board[6]==player)
+def minimax(board, depth, is_max):
+    if check_win(board, "O"):
+        return 1
+    if check_win(board, "X"):
+        return -1
+    if " " not in board:
+        return 0
+
+    if is_max:
+        best = -1000
+        for i in range(9):
+            if board[i] == " ":
+                board[i] = "O"
+                best = max(best, minimax(board, depth + 1, False))
+                board[i] = " "
+        return best
+    else:
+        best = 1000
+        for i in range(9):
+            if board[i] == " ":
+                board[i] = "X"
+                best = min(best, minimax(board, depth + 1, True))
+                board[i] = " "
+        return best
+
+def best_move(board):
+    best = -1000
+    move = -1
+    for i in range(9):
+        if board[i] == " ":
+            board[i] = "O"
+            score = minimax(board, 0, False)
+            board[i] = " "
+            if score > best:
+                best = score
+                move = i
+    return move
+
+board = [" "] * 9
+
+while True:
+    print_board(board)
+    move = int(input("Enter your move (1-9): ")) - 1
+    if board[move] == " ":
+        board[move] = "X"
+        if check_win(board, "X"):
+            print_board(board)
+            print("You win!")
+            break
+        if " " not in board:
+            print_board(board)
+            print("Draw!")
+            break
+        ai = best_move(board)
+        board[ai] = "O"
+        if check_win(board, "O"):
+            print_board(board)
+            print("AI wins!")
+            break
+        if " " not in board:
+            print_board(board)
+            print("Draw!")
+            break
+    else:
+        print("Invalid move")
