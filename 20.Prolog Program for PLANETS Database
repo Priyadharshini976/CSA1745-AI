@@ -1,0 +1,8 @@
+planet(mercury, 0.39, 0).
+planet(venus, 0.72, 0).
+planet(earth, 1.00, 1).
+planet(mars, 1.52, 2).
+planet(jupiter, 5.20, 79).
+planet(saturn, 9.58, 83).
+planet(uranus, 19.22, 27).
+planet(neptune, 30.05, 14).
