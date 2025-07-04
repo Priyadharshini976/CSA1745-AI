@@ -1,0 +1,31 @@
+% Monkey and Banana Problem in Prolog
+
+% State representation: state(MonkeyLocation, MonkeyStatus, BoxLocation, BananaStatus)
+
+% Initial state
+initial(state(at_door, on_floor, at_window, has_not)).
+
+% Goal state
+goal(state(_, _, _, has)).
+
+% Possible moves
+move(state(MonkeyLoc, on_floor, MonkeyLoc, Has), grasp, state(MonkeyLoc, on_box, MonkeyLoc, has)).
+
+move(state(MonkeyLoc, on_floor, BoxLoc, Has), walk(MonkeyLoc, NewLoc), state(NewLoc, on_floor, BoxLoc, Has)) :-
+    MonkeyLoc \= NewLoc,
+    member(NewLoc, [at_door, at_window, at_middle]).
+
+move(state(Loc, on_floor, Loc, Has), climb, state(Loc, on_box, Loc, Has)).
+
+move(state(Loc, on_box, Loc, Has), climb_down, state(Loc, on_floor, Loc, Has)).
+
+move(state(MonkeyLoc, on_floor, BoxLoc, Has), push(MonkeyLoc, NewLoc), state(NewLoc, on_floor, NewLoc, Has)) :-
+    MonkeyLoc = BoxLoc,
+    member(NewLoc, [at_door, at_window, at_middle]),
+    MonkeyLoc \= NewLoc.
+
+% Plan: find moves to reach goal
+plan(State, []) :- goal(State).
+plan(State, [Move|Rest]) :-
+    move(State, Move, NextState),
+    plan(NextState, Rest).
