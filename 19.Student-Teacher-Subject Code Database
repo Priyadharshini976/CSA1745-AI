@@ -1,0 +1,3 @@
+record(student1, teacherA, cs101).
+record(student2, teacherB, cs102).
+record(student3, teacherA, cs101).
