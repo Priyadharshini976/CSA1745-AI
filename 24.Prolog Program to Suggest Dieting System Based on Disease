@@ -1,0 +1,11 @@
+% Facts
+disease(diabetes).
+disease(hypertension).
+disease(obesity).
+
+diet(diabetes, 'Low sugar, high fiber diet with whole grains.').
+diet(hypertension, 'Low salt, potassium-rich food and leafy greens.').
+diet(obesity, 'Low-calorie, high-protein and fiber-rich food.').
+
+% Rule
+suggest_diet(Disease, Diet) :- disease(Disease), diet(Disease, Diet).
