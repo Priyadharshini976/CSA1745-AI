@@ -1,0 +1,10 @@
+% Fruit and its color using backtracking
+
+fruit(apple, red).
+fruit(banana, yellow).
+fruit(grape, purple).
+fruit(orange, orange).
+fruit(kiwi, green).
+
+% Query example: find fruits and their colors
+% ?- fruit(Fruit, Color).
