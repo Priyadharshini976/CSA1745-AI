@@ -1,0 +1,11 @@
+% Knowledge Base (Facts)
+cloudy.
+raining.
+
+% Rules
+wet_ground :- raining.
+carry_umbrella :- cloudy.
+
+% Example Queries:
+% ?- wet_ground.
+% ?- carry_umbrella.
