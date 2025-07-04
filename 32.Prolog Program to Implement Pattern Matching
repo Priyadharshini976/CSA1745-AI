@@ -1,0 +1,15 @@
+% Pattern Matching in Prolog
+
+% Check if a list starts with a specific pattern
+starts_with([H|_], H).
+
+% Check if a list ends with a specific pattern
+ends_with(List, X) :- append(_, [X], List).
+
+% Check if a list contains a pattern anywhere
+contains(List, X) :- member(X, List).
+
+% Example Queries:
+% ?- starts_with([a,b,c,d], a).
+% ?- ends_with([a,b,c,d], d).
+% ?- contains([a,b,c,d], c).
