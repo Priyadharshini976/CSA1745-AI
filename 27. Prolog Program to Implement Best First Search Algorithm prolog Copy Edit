@@ -1,0 +1,37 @@
+% Best First Search in Prolog
+
+% Example graph structure: edge(Node1, Node2, Cost)
+edge(a, b, 1).
+edge(a, c, 3).
+edge(b, d, 1).
+edge(c, d, 1).
+edge(c, e, 5).
+edge(d, f, 2).
+edge(e, f, 1).
+
+% Heuristic values for each node: heuristic(Node, Value)
+heuristic(a, 6).
+heuristic(b, 4).
+heuristic(c, 5).
+heuristic(d, 2).
+heuristic(e, 3).
+heuristic(f, 0).  % Goal node
+
+% Best First Search
+best_first_search(Start, Goal, Path) :-
+    bfs([[Start]], Goal, RevPath),
+    reverse(RevPath, Path).
+
+bfs([[Goal|Rest]|_], Goal, [Goal|Rest]).
+bfs([CurrentPath|Paths], Goal, FinalPath) :-
+    CurrentPath = [CurrentNode|_],
+    findall([NextNode|CurrentPath],
+            (edge(CurrentNode, NextNode, _), \+ member(NextNode, CurrentPath)),
+            NewPaths),
+    append(Paths, NewPaths, AllPaths),
+    sort_paths(AllPaths, SortedPaths),
+    bfs(SortedPaths, Goal, FinalPath).
+
+% Sort paths based on heuristic value of head node
+sort_paths(Paths, SortedPaths) :-
+    map_list_to_pairs(path_heuristic, P
