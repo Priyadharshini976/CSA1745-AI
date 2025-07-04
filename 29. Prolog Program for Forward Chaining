@@ -1,0 +1,15 @@
+% Knowledge Base (Facts)
+fact(raining).
+fact(cloudy).
+
+% Rules
+fact(wet_ground) :- fact(raining).
+fact(carry_umbrella) :- fact(cloudy).
+
+% Forward Chaining Inference
+forward_chain(NewFact) :-
+    fact(NewFact).
+
+% Example Query:
+% ?- forward_chain(wet_ground).
+% ?- forward_chain(carry_umbrella).
