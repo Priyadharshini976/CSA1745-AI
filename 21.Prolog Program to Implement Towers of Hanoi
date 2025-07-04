@@ -1,0 +1,10 @@
+move(1, Source, Dest, _) :-
+    write('Move disk from '), write(Source),
+    write(' to '), write(Dest), nl.
+
+move(N, Source, Dest, Aux) :-
+    N > 1,
+    N1 is N - 1,
+    move(N1, Source, Aux, Dest),
+    move(1, Source, Dest, _),
+    move(N1, Aux, Dest, Source).
