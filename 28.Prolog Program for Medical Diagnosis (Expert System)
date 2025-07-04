@@ -1,0 +1,27 @@
+% Simple Medical Diagnosis System
+
+% Facts: symptom(Disease, Symptom)
+symptom(flu, fever).
+symptom(flu, headache).
+symptom(flu, cough).
+
+symptom(cold, sneezing).
+symptom(cold, cough).
+
+symptom(malaria, fever).
+symptom(malaria, chills).
+symptom(malaria, sweating).
+
+% Rule: diagnosis based on symptoms
+diagnose(Disease) :-
+    symptom(Disease, Symptom1),
+    write('Do you have '), write(Symptom1), write('? (yes/no) '),
+    read(Reply1),
+    Reply1 == yes,
+    symptom(Disease, Symptom2),
+    Symptom2 \= Symptom1,
+    write('Do you have '), write(Symptom2), write('? (yes/no) '),
+    read(Reply2),
+    Reply2 == yes,
+    write('You may have: '), write(Disease), nl.
+
